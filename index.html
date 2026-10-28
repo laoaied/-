@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生日快乐，宝宝 🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 星空背景 -->
+<div class="stars" id="stars"></div>
+
+<!-- ===== 阶段 1：开场 ===== -->
+<section class="stage stage-intro" id="stageIntro">
+  <h1 class="intro-title">今天是个特殊的日子</h1>
+  <p class="intro-hint">（点下面的烟花按钮 5 次看看会发生什么 👇）</p>
+  <button class="btn-fire" id="btnFire">🎆</button>
+  <p class="fire-count" id="fireCount">还要点 5 下</p>
+</section>
+
+<!-- ===== 阶段 2：蛋糕 ===== -->
+<section class="stage stage-cake hidden" id="stageCake">
+
+  <!-- 蛋糕出现过渡 -->
+  <div class="cake-reveal" id="cakeReveal">
+    <p class="reveal-text">噔噔噔噔 ✨</p>
+    <p class="reveal-text-sub">宝宝的生日蛋糕来啦</p>
+  </div>
+
+  <div class="cake-wrap hidden" id="cakeWrap">
+    <!-- 蛋糕本体（纯 SVG） -->
+    <svg class="cake-svg" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <!-- 盘子 -->
+      <ellipse cx="200" cy="300" rx="170" ry="16" fill="#2a2f4a"/>
+      <ellipse cx="200" cy="295" rx="165" ry="12" fill="#3d4468"/>
+      <!-- 底层 -->
+      <rect x="55" y="210" width="290" height="85" rx="6" fill="#c9a26b"/>
+      <rect x="55" y="210" width="290" height="20" fill="#b8935a"/>
+      <!-- 装饰糖粒 -->
+      <circle cx="80" cy="240" r="3" fill="#e8d0a0"/>
+      <circle cx="120" cy="255" r="3" fill="#e8d0a0"/>
+      <circle cx="160" cy="245" r="3" fill="#e8d0a0"/>
+      <circle cx="200" cy="260" r="3" fill="#e8d0a0"/>
+      <circle cx="240" cy="250" r="3" fill="#e8d0a0"/>
+      <circle cx="280" cy="265" r="3" fill="#e8d0a0"/>
+      <circle cx="320" cy="245" r="3" fill="#e8d0a0"/>
+      <!-- 中层 -->
+      <rect x="95" y="150" width="210" height="60" rx="5" fill="#4a3a5c"/>
+      <rect x="95" y="150" width="210" height="14" fill="#3a2d4a"/>
+      <!-- 顶层奶油 -->
+      <rect x="125" y="100" width="150" height="50" rx="25" fill="#f5e6c8"/>
+      <!-- 奶油滴 -->
+      <circle cx="145" cy="148" r="10" fill="#f5e6c8"/>
+      <circle cx="175" cy="152" r="11" fill="#f5e6c8"/>
+      <circle cx="205" cy="150" r="11" fill="#f5e6c8"/>
+      <circle cx="235" cy="152" r="10" fill="#f5e6c8"/>
+      <circle cx="260" cy="149" r="9" fill="#f5e6c8"/>
+      <!-- 蜡烛 -->
+      <g class="candle" data-id="0">
+        <rect x="160" y="55" width="10" height="45" fill="#d4a853"/>
+        <rect x="160" y="55" width="10" height="8" fill="#b8903f"/>
+        <g class="flame">
+          <ellipse cx="165" cy="48" rx="4" ry="8" fill="#ffcf5c"/>
+          <ellipse cx="165" cy="48" rx="2" ry="5" fill="#fff3b0"/>
+        </g>
+      </g>
+      <g class="candle" data-id="1">
+        <rect x="195" y="50" width="10" height="50" fill="#d4a853"/>
+        <rect x="195" y="50" width="10" height="8" fill="#b8903f"/>
+        <g class="flame">
+          <ellipse cx="200" cy="43" rx="4" ry="9" fill="#ffcf5c"/>
+          <ellipse cx="200" cy="43" rx="2" ry="6" fill="#fff3b0"/>
+        </g>
+      </g>
+      <g class="candle" data-id="2">
+        <rect x="230" y="58" width="10" height="42" fill="#d4a853"/>
+        <rect x="230" y="58" width="10" height="8" fill="#b8903f"/>
+        <g class="flame">
+          <ellipse cx="235" cy="51" rx="4" ry="7" fill="#ffcf5c"/>
+          <ellipse cx="235" cy="51" rx="2" ry="5" fill="#fff3b0"/>
+        </g>
+      </g>
+      <!-- 蛋糕上的字 -->
+      <text x="200" y="245" text-anchor="middle" fill="#f5e6c8" font-family="'Dancing Script', cursive" font-size="22" font-weight="700" opacity="0.6">Baby, Happy Birthday</text>
+    </svg>
+
+    <!-- 许愿区 -->
+    <div class="wish-area" id="wishArea">
+      <p class="wish-label">🌟 许个愿吧 🌟</p>
+      <input type="text" class="wish-input" id="wishInput" placeholder="悄悄说给星星听..." maxlength="50">
+      <button class="btn-primary" id="btnWish">我许好啦</button>
+    </div>
+
+    <!-- 吹蜡烛区（初始隐藏） -->
+    <div class="blow-area hidden" id="blowArea">
+      <p class="blow-tip">愿望已悄悄告诉星星 🌙</p>
+      <p class="blow-tip-sub">快吹蜡烛吧</p>
+      <button class="btn-primary btn-blow" id="btnBlow">💨 吹 蜡 烛</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 阶段 3：大爆发 ===== -->
+<section class="stage stage-final hidden" id="stageFinal">
+  <h1 class="final-title">生日快乐，宝宝</h1>
+  <p class="final-sub">新的一岁，要开心呀 🎉</p>
+  <p class="final-foot">—— 永远在你身边 ——</p>
+</section>
+
+<!-- canvas-confetti 开源库（12k+ stars） -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
